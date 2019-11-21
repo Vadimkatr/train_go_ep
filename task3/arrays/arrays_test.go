@@ -1,13 +1,13 @@
 package arrays
 
 import (
-	"testing"
 	"math"
+	"testing"
 )
 
 func TestAverageMainCases(t *testing.T) {
-	var tests = []struct{
-		arr  []int
+	var tests = []struct {
+		arr      []int
 		wantMean float64
 	}{
 		{[]int{0}, 0},
@@ -26,63 +26,7 @@ func TestAverageMainCases(t *testing.T) {
 func TestAverageEmptyArray(t *testing.T) {
 	arr := []int{}
 	got := Average(arr)
-	if !math.IsNaN(got){
+	if !math.IsNaN(got) {
 		t.Errorf("Average(%v) == %f, want NaN", arr, got)
 	}
-}
-
-func TestMaxMainCases(t *testing.T) {
-	var tests = []struct{
-		arr  []string
-		maxstring string
-	}{
-		{[]string{"a", "bb", "ccc"}, "ccc"},
-		{[]string{"a", "b", "c"}, "a"},
-		{[]string{"aaa", "b"}, "aaa"},
-		{[]string{""}, ""},
-	}
-	for _, c := range tests {
-		got := Max(c.arr)
-		if got != c.maxstring {
-			t.Errorf("Max(%v) == %s, want %s", c.arr, got, c.maxstring)
-		}
-	}
-}
-
-func TestMaxEmptyArray(t *testing.T) {
-    defer func() {
-        if r := recover(); r != nil {
-            // it's ok
-        }
-    }()
-    Max([]string{})
-    t.Errorf("The code did not panic")
-}
-
-func TestReverse(t *testing.T) {
-	var tests = []struct{
-		arr, reversearr []int64
-	}{
-		{[]int64{},[]int64{}},
-		{[]int64{1, 2, 3, 4, 5}, []int64{5, 4, 3, 2, 1}},
-		{[]int64{1, 1, 1}, []int64{1, 1, 1}},
-	}
-	for _, c := range tests {
-		gotarr := Reverse(c.arr)
-		if !equalSlice(gotarr, c.reversearr) {
-			t.Errorf("Reverse(%v) == %v, want %v", c.arr, gotarr, c.reversearr)
-		}
-	}
-}
-
-func equalSlice(firstslice, secondslice []int64) bool {
-	if len(firstslice) != len(secondslice) {
-		return false
-	}
-	for i := 0; i < len(firstslice); i ++ {
-		if firstslice[i] != secondslice[i] {
-			return false
-		}
-	}
-	return true
 }
