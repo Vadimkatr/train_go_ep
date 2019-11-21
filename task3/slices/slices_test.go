@@ -2,6 +2,7 @@ package slices
 
 import (
 	"testing"
+	"train_go_ep/task3/utils"
 )
 
 func TestMaxMainCases(t *testing.T) {
@@ -42,20 +43,9 @@ func TestReverse(t *testing.T) {
 	}
 	for _, c := range tests {
 		gotarr := Reverse(c.arr)
-		if !equalSlice(gotarr, c.reverseArr) {
+		if !utils.EqualSliceOfInt64(gotarr, c.reverseArr) {
 			t.Errorf("Reverse(%v) == %v, want %v", c.arr, gotarr, c.reverseArr)
 		}
 	}
 }
 
-func equalSlice(firstSlice, secondSlice []int64) bool {
-	if len(firstSlice) != len(secondSlice) {
-		return false
-	}
-	for i := 0; i < len(firstSlice); i ++ {
-		if firstSlice[i] != secondSlice[i] {
-			return false
-		}
-	}
-	return true
-}
