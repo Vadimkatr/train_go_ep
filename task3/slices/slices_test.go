@@ -24,20 +24,20 @@ func TestMaxMainCases(t *testing.T) {
 }
 
 func TestMaxEmptyArray(t *testing.T) {
-    defer func() {
-        if r := recover(); r != nil {
-            // it's ok
-        }
-    }()
-    Max([]string{})
-    t.Errorf("The code did not panic")
+	defer func() {
+		if r := recover(); r != nil {
+			// it's ok
+		}
+	}()
+	Max([]string{})
+	t.Errorf("The code did not panic")
 }
 
 func TestReverse(t *testing.T) {
 	var tests = []struct {
 		arr, reverseArr []int64
 	}{
-		{[]int64{},[]int64{}},
+		{[]int64{}, []int64{}},
 		{[]int64{1, 2, 3, 4, 5}, []int64{5, 4, 3, 2, 1}},
 		{[]int64{1, 1, 1}, []int64{1, 1, 1}},
 	}
@@ -48,4 +48,3 @@ func TestReverse(t *testing.T) {
 		}
 	}
 }
-
