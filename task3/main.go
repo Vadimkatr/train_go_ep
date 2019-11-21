@@ -12,9 +12,13 @@ func main() {
 	fmt.Println(arrays.Average(arr)) // 3.5
 
 	someStrings := []string{"a", "asd", "4ccc", "aa", "5aaaa"}
-	fmt.Println(slices.Max(someStrings)) // 5aaaa
+	if result, err := slices.Max(someStrings); err == nil {
+		fmt.Println(result) // 5aaaa
+	}
 	someStrings = []string{"a", "b"}
-	fmt.Println(slices.Max(someStrings)) // a
+	if result, err := slices.Max(someStrings); err == nil {
+		fmt.Println(result) // a
+	}
 
 	someSlice := []int64{1, 2, 3, 4, 5, 6}
 	fmt.Println(slices.Reverse(someSlice)) // [6 5 4 3 2 1]

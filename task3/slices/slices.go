@@ -1,8 +1,12 @@
 package slices
 
-func Max(slice []string) string {
+import (
+	"errors"
+)
+
+func Max(slice []string) (string, error) {
 	if len(slice) == 0 {
-		panic("func Max(slice): slice is empty")
+		return "", errors.New("func Max(slice): slice is empty")
 	}
 	idxmax := 0
 	maxlen := len(slice[0])
@@ -13,7 +17,7 @@ func Max(slice []string) string {
 			idxmax = i
 		}
 	}
-	return slice[idxmax]
+	return slice[idxmax], nil
 }
 
 func Reverse(arr []int64) []int64 {

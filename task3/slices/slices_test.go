@@ -16,7 +16,7 @@ func TestMaxMainCases(t *testing.T) {
 		{[]string{""}, ""},
 	}
 	for _, c := range tests {
-		got := Max(c.arr)
+		got, _ := Max(c.arr)
 		if got != c.maxString {
 			t.Errorf("Max(%v) == %s, want %s", c.arr, got, c.maxString)
 		}
@@ -29,8 +29,9 @@ func TestMaxEmptyArray(t *testing.T) {
 			// it's ok
 		}
 	}()
-	Max([]string{})
-	t.Errorf("The code did not panic")
+	if _, err :=	Max([]string{}); err == nil {
+		t.Errorf("Error: %s", err)
+	}
 }
 
 func TestReverse(t *testing.T) {
