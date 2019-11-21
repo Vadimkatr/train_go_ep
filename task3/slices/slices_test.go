@@ -1,8 +1,8 @@
 package slices
 
 import (
+	"reflect"
 	"testing"
-	"train_go_ep/task3/utils"
 )
 
 func TestMaxMainCases(t *testing.T) {
@@ -42,9 +42,9 @@ func TestReverse(t *testing.T) {
 		{[]int64{1, 1, 1}, []int64{1, 1, 1}},
 	}
 	for _, c := range tests {
-		gotarr := Reverse(c.arr)
-		if !utils.EqualSliceOfInt64(gotarr, c.reverseArr) {
-			t.Errorf("Reverse(%v) == %v, want %v", c.arr, gotarr, c.reverseArr)
+		gotArr := Reverse(c.arr)
+		if !reflect.DeepEqual(gotArr, c.reverseArr) {
+			t.Errorf("Reverse(%v) == %v, want %v", c.arr, gotArr, c.reverseArr)
 		}
 	}
 }

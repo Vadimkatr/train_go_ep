@@ -1,8 +1,8 @@
 package maps
 
 import (
+	"reflect"
 	"testing"
-	"train_go_ep/task3/utils"
 )
 
 func TestPrintSortedMainCases(t *testing.T) {
@@ -18,7 +18,7 @@ func TestPrintSortedMainCases(t *testing.T) {
 	}
 	for _, c := range tests {
 		got := PrintSorted(c.mp)
-		if !utils.EqualSliceOfStrings(got, c.wantStrings) {
+		if !reflect.DeepEqual(got, c.wantStrings) {
 			t.Errorf("Average(%v) == %v, want %v", c.mp, got, c.wantStrings)
 		}
 	}
