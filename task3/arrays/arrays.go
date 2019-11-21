@@ -24,3 +24,12 @@ func Max(slice []string) string {
 	}
 	return slice[idxmax]
 }
+
+func Reverse(arr []int64) []int64 {
+	reversearr := make([]int64, len(arr))
+	size := len(arr)
+	for i, value := range arr {
+		reversearr[size - i - 1] = value
+	}
+	return reversearr
+}

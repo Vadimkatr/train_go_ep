@@ -14,4 +14,6 @@ func main() {
 	someStrings = []string{"a", "b"}
 	fmt.Println(arrays.Max(someStrings))
 
+	somearr := []int64{1, 2, 3, 4, 5, 6}
+	fmt.Println(arrays.Reverse(somearr))
 }
