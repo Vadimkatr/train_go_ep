@@ -6,9 +6,11 @@ import (
 
 func PrintSorted(mp map[int]string) []string {
 	sortedValues := make([]string, len(mp))
-	keys := make([]int, 0, len(mp))
-	for k := range mp {
-		keys = append(keys, k)
+	keys := make([]int, len(mp), len(mp))
+	i := 0
+	for k, _ := range mp {
+		keys[i] = k
+		i ++
 	}
 	sort.Ints(keys)
 	for i, key := range keys {
