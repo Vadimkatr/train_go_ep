@@ -24,12 +24,7 @@ func TestMaxMainCases(t *testing.T) {
 }
 
 func TestMaxEmptyArray(t *testing.T) {
-	defer func() {
-		if r := recover(); r != nil {
-			// it's ok
-		}
-	}()
-	if _, err :=	Max([]string{}); err == nil {
+	if _, err := Max([]string{}); err == nil {
 		t.Errorf("Error: %s", err)
 	}
 }
