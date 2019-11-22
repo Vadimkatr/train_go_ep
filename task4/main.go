@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 	"sort"
+	"train_go_ep/task4/figure"
 	"train_go_ep/task4/person"
 	"train_go_ep/task4/utils"
 )
-
 
 func main() {
 	ivanIvanovDate := utils.DateParse("2005-Aug-10")
@@ -48,4 +48,13 @@ func main() {
 	// 6) Dima Fedorov 2004-06-01.
 	// 7) Sahsa Fedorov 2004-06-01.
 	// 8) Arsenii Aaaa 2005-08-10.
+
+	point := figure.Point{X: 1, Y: 1}
+	var s figure.Figure = figure.Square{Start: point, A: 4, B: 5}
+	var c figure.Figure = figure.Circle{Center: point, R: 3}
+
+	fmt.Printf("Square area: %f; perimeter: %f\n", s.Area(), s.Perimeter())
+	// Square area: 20.000000; perimeter: 18.000000
+	fmt.Printf("Circle area: %f; perimeter: %f\n", c.Area(), c.Perimeter())
+	// Circle area: 28.274334; perimeter: 18.849556
 }
