@@ -6,6 +6,7 @@ import (
 	"train_go_ep/task4/figure"
 	"train_go_ep/task4/person"
 	"train_go_ep/task4/utils"
+	"github.com/kyokomi/emoji"
 )
 
 func main() {
@@ -57,4 +58,6 @@ func main() {
 	// Square area: 20.000000; perimeter: 18.000000
 	fmt.Printf("Circle area: %f; perimeter: %f\n", c.Area(), c.Perimeter())
 	// Circle area: 28.274334; perimeter: 18.849556
+
+	emoji.Println("Hello world :smile:!")
 }
