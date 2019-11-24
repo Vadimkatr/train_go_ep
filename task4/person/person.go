@@ -1,8 +1,8 @@
 package person
 
 import (
+	"fmt"
 	"time"
-	"strconv"
 )
 
 type Person struct {
@@ -12,7 +12,7 @@ type Person struct {
 }
 
 func (p Person) String() string {
-	return p.FirstName + " " + p.LastName + " " + p.BirthDay.Format("2006-01-02")
+	return fmt.Sprintf("%s %s %s", p.FirstName, p.LastName, p.BirthDay.Format("2006-01-02"))
 }
 
 type People []Person
@@ -40,7 +40,7 @@ func (p People) Less(i, j int) bool {
 
 func (p People) String() (res string) {
 	for i, per := range p {
-		res += strconv.Itoa(i + 1) + ") " + per.String() + ".\n"
+		res += fmt.Sprintf("%d) %s\n", i, per.String())
 	}
 	return
 }
