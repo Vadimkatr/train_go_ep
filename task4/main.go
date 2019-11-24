@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+	// task 1
 	ivanIvanovDate := utils.DateParse("2005-Aug-10")
 	ivanIvanovSecondDate := utils.DateParse("2003-Aug-05")
 	ivanBbbbDate := utils.DateParse("2005-Aug-10")
@@ -50,6 +51,7 @@ func main() {
 	// 7) Sahsa Fedorov 2004-06-01.
 	// 8) Arsenii Aaaa 2005-08-10.
 
+	// task 2
 	point := figure.Point{X: 1, Y: 1}
 	var s figure.Figure = figure.Square{Start: point, A: 4, B: 5}
 	var c figure.Figure = figure.Circle{Center: point, R: 3}
@@ -59,5 +61,6 @@ func main() {
 	fmt.Printf("Circle area: %f; perimeter: %f\n", c.Area(), c.Perimeter())
 	// Circle area: 28.274334; perimeter: 18.849556
 
+	// task 3; (also see terminal_screen.jpg for)
 	emoji.Println("Hello world :smile:!")
 }
