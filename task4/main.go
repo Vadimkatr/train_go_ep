@@ -20,14 +20,14 @@ func main() {
 	sahsaFedorovDate := utils.DateParse("2004-Jun-01")
 
 	p := person.People{
-		{"Ivan", "Ivanov", ivanIvanovDate},
-		{"Ivan", "Ivanov", ivanIvanovSecondDate},
-		{"Ivan", "Bddd", ivanBbbbDate},
-		{"Artiom", "Ivanov", artiomIvanovDate},
-		{"Artiom", "Petrov", artiomPetrovDate},
-		{"Dima", "Fedorov", dimaFedorovDate},
-		{"Sahsa", "Fedorov", sahsaFedorovDate},
-		{"Arsenii", "Aaaa", arseniiAaaaDate},
+		{FirstName: "Ivan", LastName: "Ivanov", BirthDay: ivanIvanovDate},
+		{FirstName: "Ivan", LastName: "Ivanov", BirthDay: ivanIvanovSecondDate},
+		{FirstName: "Ivan", LastName: "Bddd", BirthDay: ivanBbbbDate},
+		{FirstName: "Artiom", LastName: "Ivanov", BirthDay: artiomIvanovDate},
+		{FirstName: "Artiom", LastName: "Petrov", BirthDay: artiomPetrovDate},
+		{FirstName: "Dima", LastName: "Fedorov", BirthDay: dimaFedorovDate},
+		{FirstName: "Sahsa", LastName: "Fedorov", BirthDay: sahsaFedorovDate},
+		{FirstName: "Arsenii", LastName: "Aaaa", BirthDay: arseniiAaaaDate},
 	}
 
 	fmt.Println(p)
