@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 )
@@ -21,14 +22,19 @@ func handleAny(w http.ResponseWriter, r *http.Request) {
 	resp := Response{
 		Host:       r.Host,
 		UserAgent:  r.Header.Get("User-Agent"),
-		RequestUri: r.RequestURI,
+		RequestUri: fmt.Sprintf("%v %v", r.Method, r.RequestURI),
 		Headers: Header{
 			Accept:    r.Header.Get("Accept"),
 			UserAgent: r.UserAgent(),
 		},
 	}
-	j, _ := json.Marshal(resp)
-
+	j, err := json.Marshal(resp)
+	if err != nil {
+		log.Println(err)
+		w.Write([]byte(err.Error()))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 	w.Write(j)
 }
 
@@ -37,4 +43,5 @@ func main() {
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Panic(err)
 	}
+	log.Println("Start server at :8080")
 }
