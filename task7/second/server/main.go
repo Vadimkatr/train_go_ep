@@ -17,8 +17,6 @@ func handleConn(conn net.Conn) {
 	defer conn.Close()
 
 	for {
-		//input := make([]byte, (1024)) // read to buffer size 1024
-		//n, err := conn.Read(input)
 		msg, err := bufio.NewReader(conn).ReadString('\n')
 		if err != nil {
 			log.Println("Read error:", err)

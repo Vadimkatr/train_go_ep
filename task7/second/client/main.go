@@ -16,7 +16,6 @@ func main() {
 	defer conn.Close()
 
 	for {
-		// read in input from stdin
 		reader := bufio.NewReader(os.Stdin)
 		text, _ := reader.ReadString('\n') // read msg from stdin
 		fmt.Fprintf(conn, text+"\n")       // send msg
