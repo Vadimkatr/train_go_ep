@@ -25,7 +25,7 @@ func handleConn(conn net.Conn) {
 			return
 		}
 
-		msg = msg[:len(msg) - 1]
+		msg = msg[:len(msg)-1]
 		if msg == exitString {
 			return
 		}
@@ -34,7 +34,7 @@ func handleConn(conn net.Conn) {
 		if err != nil {
 			conn.Write([]byte(strings.ToUpper(msg) + "\n"))
 		} else {
-			conn.Write([]byte(fmt.Sprintf("%d\n", num * 2)))
+			conn.Write([]byte(fmt.Sprintf("%d\n", num*2)))
 		}
 	}
 }
