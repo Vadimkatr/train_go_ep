@@ -30,20 +30,20 @@ func (r *ContactsRepositoryInDB) Save(contact model.Contact) (model.Contact, err
 	defer r.Unlock()
 
 	_, err := r.db.Exec(
-		"INSERT INTO contacts (id, first_name, last_name, phone, email) " +
+		"INSERT INTO contacts (id, first_name, last_name, phone, email) "+
 			"VALUES ($1, $2, $3, $4, $5) RETURNING id",
-		r.lastID + 1,
+		r.lastID+1,
 		contact.FirstName,
 		contact.LastName,
 		contact.Phone,
 		contact.Email,
-		)
+	)
 	if err != nil {
 		r.logger.Error(err)
 		return contact, repository.ErrNotUniqueEmailOrPhone
 	}
 
-	r.lastID ++
+	r.lastID++
 
 	return contact, nil
 }
@@ -54,7 +54,7 @@ func (r *ContactsRepositoryInDB) ListAll() ([]model.Contact, error) {
 
 	rows, err := r.db.Query(
 		"SELECT id, first_name, last_name, phone, email FROM contacts",
-		)
+	)
 
 	defer rows.Close()
 
@@ -89,20 +89,20 @@ func (r *ContactsRepositoryInDB) GetByID(id uint) (model.Contact, error) {
 	c := model.Contact{}
 	if err := r.db.QueryRow(
 		"SELECT id, first_name, last_name, phone, email FROM contacts WHERE id = $1",
-			id,
-		).Scan(
-			&c.ID,
-			&c.FirstName,
-			&c.LastName,
-			&c.Phone,
-			&c.Email,
-		); err != nil {
-			if err == sql.ErrNoRows {
-				return model.Contact{}, repository.ErrRecordNotFound
-			}
-
-			return model.Contact{}, err
+		id,
+	).Scan(
+		&c.ID,
+		&c.FirstName,
+		&c.LastName,
+		&c.Phone,
+		&c.Email,
+	); err != nil {
+		if err == sql.ErrNoRows {
+			return model.Contact{}, repository.ErrRecordNotFound
 		}
+
+		return model.Contact{}, err
+	}
 
 	return c, nil
 }
@@ -164,7 +164,7 @@ func (r *ContactsRepositoryInDB) SearchByName(n string) ([]model.Contact, error)
 	searchNamePattern := fmt.Sprintf("%s%%", n)
 
 	rows, err := r.db.Query(
-		"SELECT id, first_name, last_name, phone, email FROM contacts " +
+		"SELECT id, first_name, last_name, phone, email FROM contacts "+
 			"WHERE first_name LIKE $1 OR last_name LIKE $2",
 		searchNamePattern,
 		searchNamePattern,
@@ -199,7 +199,7 @@ func (r *ContactsRepositoryInDB) SearchByName(n string) ([]model.Contact, error)
 func (r *ContactsRepositoryInDB) Delete(id uint) error {
 	r.Lock()
 	defer r.Unlock()
-	
+
 	_, err := r.db.Exec(
 		"DELETE FROM contacts WHERE id = $1",
 		id,
