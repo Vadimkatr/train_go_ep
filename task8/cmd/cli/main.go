@@ -1,11 +1,16 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 	"log"
 
-	"train_go_ep/task8/pkg/model"
-	"train_go_ep/task8/pkg/repository/memory"
+	_ "github.com/lib/pq"
+
+
+	"task8/pkg/model"
+	//"/task8/pkg/repository/memory"
+	"task8/pkg/repository/postgresstore"
 )
 
 const (
@@ -18,8 +23,27 @@ const (
 	CommandDelete
 )
 
+func newDB(dbURL string) (*sql.DB, error) {
+	db, err := sql.Open("postgres", dbURL)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := db.Ping(); err != nil {
+		return nil, err
+	}
+	return db, nil
+}
+
 func main() {
-	repository := memory.NewContactsRepositoryInMemory()
+	dbURL := "host=localhost dbname=test sslmode=disable user=testuser2 password=password"
+	db, err := newDB(dbURL)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	//repository := memory.NewContactsRepositoryInMemory()
+	repository := postgresstore.NewContactsRepositoryInDB(db)
 
 	for {
 		fmt.Print(menu)
