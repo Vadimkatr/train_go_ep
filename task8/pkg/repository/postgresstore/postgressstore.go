@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/sirupsen/logrus"
+	"sync"
 
 	"task8/pkg/model"
 	"task8/pkg/repository"
@@ -13,6 +14,7 @@ type ContactsRepositoryInDB struct {
 	db     *sql.DB
 	logger *logrus.Logger
 	lastID uint
+	sync.RWMutex
 }
 
 func NewContactsRepositoryInDB(db *sql.DB) *ContactsRepositoryInDB {
@@ -24,6 +26,9 @@ func NewContactsRepositoryInDB(db *sql.DB) *ContactsRepositoryInDB {
 }
 
 func (r *ContactsRepositoryInDB) Save(contact model.Contact) (model.Contact, error) {
+	r.Lock()
+	defer r.Unlock()
+
 	_, err := r.db.Exec(
 		"INSERT INTO contacts (id, first_name, last_name, phone, email) " +
 			"VALUES ($1, $2, $3, $4, $5) RETURNING id",
@@ -44,6 +49,9 @@ func (r *ContactsRepositoryInDB) Save(contact model.Contact) (model.Contact, err
 }
 
 func (r *ContactsRepositoryInDB) ListAll() ([]model.Contact, error) {
+	r.RLock()
+	defer r.RUnlock()
+
 	rows, err := r.db.Query(
 		"SELECT id, first_name, last_name, phone, email FROM contacts",
 		)
@@ -75,6 +83,9 @@ func (r *ContactsRepositoryInDB) ListAll() ([]model.Contact, error) {
 }
 
 func (r *ContactsRepositoryInDB) GetByID(id uint) (model.Contact, error) {
+	r.RLock()
+	defer r.RUnlock()
+
 	c := model.Contact{}
 	if err := r.db.QueryRow(
 		"SELECT id, first_name, last_name, phone, email FROM contacts WHERE id = $1",
@@ -97,6 +108,9 @@ func (r *ContactsRepositoryInDB) GetByID(id uint) (model.Contact, error) {
 }
 
 func (r *ContactsRepositoryInDB) GetByPhone(phone string) (model.Contact, error) {
+	r.RLock()
+	defer r.RUnlock()
+
 	c := model.Contact{}
 	if err := r.db.QueryRow(
 		"SELECT id, first_name, last_name, phone, email FROM contacts WHERE phone = $1",
@@ -119,6 +133,9 @@ func (r *ContactsRepositoryInDB) GetByPhone(phone string) (model.Contact, error)
 }
 
 func (r *ContactsRepositoryInDB) GetByEmail(email string) (model.Contact, error) {
+	r.RLock()
+	defer r.RUnlock()
+
 	c := model.Contact{}
 	if err := r.db.QueryRow(
 		"SELECT id, first_name, last_name, phone, email FROM contacts WHERE email = $1",
@@ -141,6 +158,9 @@ func (r *ContactsRepositoryInDB) GetByEmail(email string) (model.Contact, error)
 }
 
 func (r *ContactsRepositoryInDB) SearchByName(n string) ([]model.Contact, error) {
+	r.RLock()
+	defer r.RUnlock()
+
 	searchNamePattern := fmt.Sprintf("%s%%", n)
 
 	rows, err := r.db.Query(
@@ -177,6 +197,9 @@ func (r *ContactsRepositoryInDB) SearchByName(n string) ([]model.Contact, error)
 }
 
 func (r *ContactsRepositoryInDB) Delete(id uint) error {
+	r.Lock()
+	defer r.Unlock()
+	
 	_, err := r.db.Exec(
 		"DELETE FROM contacts WHERE id = $1",
 		id,
