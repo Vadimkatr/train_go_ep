@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+        <div style="width:300px">
+            <form method="POST" action="/" name="person">
+                <label>Name</label><br>
+                <input name="name" id="name" type="text" value="" style="width:300px" /><br>
+                <label>Address</label><br>
+                <input name="address" id="address" type="text" value="" style="width:300px" /><br>
+                <br/>
+                <input type="submit" value="Send" style="height:30px; width:100px;" />
+            </form>
+            <br />
+
+            <p class="result">Tokens:</p>
+            <br />
+            <table border="1" cellpadding="5" style="width:300px" id="tokenTable"></table>
+        </div>
+    </body>
+    <script type="text/javascript">
+        let tokens = document.cookie.split(';').reverse().filter((item) => item.trim().startsWith("token="));
+
+        // Find a <table> element with id="myTable":
+        var table = document.getElementById("tokenTable");
+        var i;
+        for (i = 0; i < tokens.length; i ++ ) {
+            // Create an empty <tr> element and add it to the 1st position of the table:
+            var row = table.insertRow(0);
+            // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+            var cell1 = row.insertCell(0);
+            // Add some text to the new cells:
+            cell1.innerHTML = tokens[i];
+        }
+    </script>   
+</html>
