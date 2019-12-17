@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"log"
 	"net"
 	"os"
@@ -17,9 +18,17 @@ func main() {
 
 	for {
 		reader := bufio.NewReader(os.Stdin)
-		text, _ := reader.ReadString('\n') // read msg from stdin
-		fmt.Fprintf(conn, text+"\n")       // send msg
-		msg := make([]byte, 100)           // buffer where we will read msg from server
+		text, err := reader.ReadString('\n') // read msg from stdin
+		if err != nil {
+			if err == io.EOF { // when user type Ctrl+D to get EOF
+				break
+			} else {
+				log.Fatal(err) // something went wrong
+				return
+			}
+		}
+		fmt.Fprintf(conn, text+"\n") // send msg
+		msg := make([]byte, 100)     // buffer where we will read msg from server
 		n, err := conn.Read(msg)
 		if n == 0 || err != nil {
 			fmt.Println(err.Error())
